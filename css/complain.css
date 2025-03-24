@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 20px;
-    background:#05505a;
+    /* background:#05505a; */
 }
 
 .container {
@@ -32,7 +32,7 @@ label{
 button {
     padding: 10px;
     margin-right: 5px;
-    background: blue;
+    background:#05505a ;
     color: white;
     border: none;
     cursor: pointer;

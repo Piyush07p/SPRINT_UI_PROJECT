@@ -46,10 +46,12 @@ function confirmPayment() {
 }
 
 function processPayment() {
-    document.getElementById("confirmation-modal").classList.add("hidden");
-    document.getElementById("success-message").classList.remove("hidden");
-    document.getElementById("transaction-date").textContent = new Date().toLocaleDateString();
-    document.getElementById("paid-amount").textContent = totalAmount;
+    // document.getElementById("confirmation-modal").classList.add("hidden");
+    // document.getElementById("success-message").classList.remove("hidden");
+    // document.getElementById("transaction-date").textContent = new Date().toLocaleDateString();
+    // document.getElementById("paid-amount").textContent = totalAmount;
+    alert("Payment Successful! Generating Invoice...");
+    window.location.href = "/pages/invoice.html?transactionId=123456789";
 }
 
 function cancelPayment() {
@@ -57,5 +59,5 @@ function cancelPayment() {
 }
 
 function goBack() {
-    window.history.back();
+    window.location.href="/pages/view_bill_summary.html";
 }

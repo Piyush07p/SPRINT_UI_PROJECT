@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="/css/invoice.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Invoice</h2>
+        <table>
+            <tr><th>Transaction ID</th><td id="transactionId"></td></tr>
+            <tr><th>Payment ID</th><td>987654321</td></tr>
+            <tr><th>Receipt Number</th><td>INV-20240323</td></tr>
+            <tr><th>Consumer Details</th><td>John Doe</td></tr>
+            <tr><th>Transaction Date</th><td>23-Mar-2024</td></tr>
+            <tr><th>Transaction Type</th><td>Credit</td></tr>
+            <tr><th>Bill Number</th><td>456123</td></tr>
+            <tr><th>Transaction Amount</th><td>$120.50</td></tr>
+            <tr><th>Transaction Status</th><td>Success</td></tr>
+        </table>
+        <button id="downloadBtn">Download Invoice</button>
+        <button onclick="window.location.href='/pages/pay_bill.html'">Go back</button>
+    </div>
+
+    <script src="/js/invoice.js"></script>
+</body>
+</html>

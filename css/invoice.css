@@ -5,7 +5,7 @@ body {
 }
 .container {
     background-color: white;
-    width: 80%;
+    width: 50%;
     margin: 50px auto;
     padding: 20px;
     border-radius: 8px;
@@ -13,23 +13,17 @@ body {
 }
 table {
     width: 100%;
-    border-collapse: collapse;
     margin-top: 20px;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #ddd;
 }
 th, td {
-    border: 1px solid #ddd;
     padding: 10px;
-    text-align: center;
+    text-align: left;
 }
-th {
-    background-color: #05505a;
-    color: white;
-}
-.total-container {
-    margin-top: 20px;
-    font-size: 18px;
-}
-.pay-button {
+button {
     background-color: #05505a;
     color: white;
     padding: 10px;
@@ -38,7 +32,4 @@ th {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-}
-.pay-button:disabled {
-    background-color: gray;
 }
