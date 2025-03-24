@@ -1,88 +1,48 @@
-const bills = [
-    { consumerNo: '12345', billNumber: 'BILL001', paymentStatus: 'Unpaid', connectionType: 'Domestic', connectionStatus: 'Connected', mobile: '9876543210', billPeriod: 'Jan-Feb', billDate: '2024-01-10', dueDate: '2024-02-10', disconnectionDate: '-', dueAmount: 500 },
-    { consumerNo: '67890', billNumber: 'BILL002', paymentStatus: 'Unpaid', connectionType: 'Commercial', connectionStatus: 'Connected', mobile: '9876543222', billPeriod: 'Jan-Feb', billDate: '2024-01-15', dueDate: '2024-02-15', disconnectionDate: '-', dueAmount: 750 },
-    { consumerNo: '67894', billNumber: 'BILL006', paymentStatus: 'Unpaid', connectionType: 'Industrial', connectionStatus: 'Connected', mobile: '9876543226', billPeriod: 'Mar-Apr', billDate: '2024-03-12', dueDate: '2024-04-12', disconnectionDate: '-', dueAmount: 5000 },
-    { consumerNo: '67895', billNumber: 'BILL007', paymentStatus: 'Paid', connectionType: 'Commercial', connectionStatus: 'Connected', mobile: '9876543227', billPeriod: 'Apr-May', billDate: '2024-04-05', dueDate: '2024-05-05', disconnectionDate: '-', dueAmount: 1800 },
-   
+let bills = [
+    { consumerNo: "12345", billNo: "B1001", status: "Unpaid", type: "Domestic", connection: "Connected", mobile: "9876543210", period: "Jan-Feb", billDate: "01/03/2024", dueDate: "15/03/2024", disconnectionDate: "-", dueAmount: 500 },
+    { consumerNo: "67890", billNo: "B1002", status: "Paid", type: "Commercial", connection: "Disconnected", mobile: "9876543222", period: "Feb-Mar", billDate: "01/04/2024", dueDate: "15/04/2024", disconnectionDate: "20/04/2024", dueAmount: 800 }
 ];
 
-function loadBills() {
-    const billTable = document.getElementById('billTable');
-    billTable.innerHTML = ""; // Clear previous rows
+let totalPayable = 0;
 
-    bills.forEach((bill, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><input type="checkbox" class="bill-checkbox" data-index="${index}" onchange="calculateTotal()"></td>
-            <td>${bill.billNumber}</td>
-            <td>${bill.paymentStatus}</td>
-            <td>${bill.connectionType}</td>
-            <td>${bill.connectionStatus}</td>
+function updateTotal() {
+    totalPayable = 0;
+    document.querySelectorAll(".bill-checkbox:checked").forEach(checkbox => {
+        let row = checkbox.closest("tr");
+        let payableAmount = parseFloat(row.querySelector(".payable-amount").value) || 0;
+        totalPayable += payableAmount;
+    });
+    document.getElementById("totalAmount").textContent = totalPayable;
+    document.getElementById("proceedToPay").disabled = totalPayable === 0;
+}
+
+function loadBills() {
+    let tableBody = document.getElementById("billTable");
+    tableBody.innerHTML = "";
+    
+    bills.forEach(bill => {
+        let row = `<tr>
+            <td><input type="checkbox" class="bill-checkbox" onchange="updateTotal()"></td>
+            <td>${bill.consumerNo}</td>
+            <td>${bill.billNo}</td>
+            <td>${bill.status}</td>
+            <td>${bill.type}</td>
+            <td>${bill.connection}</td>
+            <td>${bill.mobile}</td>
+            <td>${bill.period}</td>
             <td>${bill.billDate}</td>
             <td>${bill.dueDate}</td>
-            <td>₹${bill.dueAmount}</td>
-            <td><input type="hidden" class="payable-amount" value="${bill.dueAmount}" data-index="${index}" onchange="calculateTotal()">₹${bill.dueAmount}</td>
-            <td><button class="pages-btn view-pay-btn" data-index="${index}">View/Pay</button></td>
-        `;
-        billTable.appendChild(row);
-    });
-
-    // Attach event listeners for "View/Pay" buttons
-    document.querySelectorAll(".view-pay-btn").forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-            const billIndex = event.target.getAttribute("data-index");
-            openBillModal(bills[billIndex]);
-        });
+            <td>${bill.disconnectionDate}</td>
+            <td>${bill.dueAmount}</td>
+            <td><input type="number" class="payable-amount" value="${bill.dueAmount}" min="0" max="${bill.dueAmount}" onchange="updateTotal()"></td>
+        </tr>`;
+        tableBody.innerHTML += row;
     });
 }
 
-function calculateTotal() {
-    let total = 0;
-    document.querySelectorAll('.bill-checkbox').forEach((checkbox, index) => {
-        
-        if (checkbox.checked) {
-            console.log(document.querySelectorAll(''))
-            const amount = document.querySelectorAll('.payable-amount')[index].value;
-            total += parseFloat(amount);
-        }
-    });
+document.getElementById("proceedToPay").addEventListener("click", function() {
+    
+    window.location.href = "/pages/view_bill_summary.html";
+});
 
-    document.getElementById('totalAmount').innerText = total.toFixed(2);
-}
-
-function proceedToPay() {
-    alert('Redirecting to Payment Page with total amount: ' + document.getElementById('totalAmount').innerText);
-    window.location.href = 'view_bill_summary.html';
-}
-
-// Open modal function
-function openBillModal(bill) {
-    const modalTable = document.getElementById("modalBillDetails");
-    modalTable.innerHTML = `
-        <tr><td>Consumer No</td><td>${bill.consumerNo}</td></tr>
-        <tr><td>Bill Number</td><td>${bill.billNumber}</td></tr>
-        <tr><td>Payment Status</td><td>${bill.paymentStatus}</td></tr>
-        <tr><td>Connection Type</td><td>${bill.connectionType}</td></tr>
-        <tr><td>Connection Status</td><td>${bill.connectionStatus}</td></tr>
-        <tr><td>Mobile Number</td><td>${bill.mobile}</td></tr>
-        <tr><td>Bill Period</td><td>${bill.billPeriod}</td></tr>
-        <tr><td>Bill Date</td><td>${bill.billDate}</td></tr>
-        <tr><td>Due Date</td><td>${bill.dueDate}</td></tr>
-        <tr><td>Due Amount</td><td>₹${bill.dueAmount}</td></tr>
-        <tr><td>Payable Amount</td><td><input type="hidden" id="payAmount" placeholder="Enter amount">₹${bill.dueAmount}</td></tr>
-    `;
-
-    const modal = document.getElementById("billDialog");
-    modal.showModal();
-
-    // Close modal when clicking outside the content
-    modal.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.close();
-        }
-    });
-}
-
-
-// Load bills when the page loads
-window.onload = loadBills;
+loadBills();

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Consumer - EnergiX</title>
+    <link rel="stylesheet" href="/css/admin/add_new_consumer.css">
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo33.png" alt="EnergiX Logo">
+            <img src="fin.png" class="image2" alt="">
+        </div>
+
+        <a href="#">Dashboard</a> 
+        <a href="#">Add Customer</a>
+        <a href="#">Add Consumer</a>
+        <a href="#">List Customers</a>
+        <a href="#">Disconnect/Reconnect Customers</a>
+        <a href="#">Add Bill</a>
+        <a href="#">View Bill</a>
+        <a href="#">View Complaint</a>
+        <a href="#">Update Complaint</a>
+    </div>
+    <div class="topbar">
+        <button class="hamburger">&#9776;</button>
+
+        <div class="text">Admin panel</div>
+        <div class="logout" title="Logout">
+            <img src="shutdown.png" alt="Logout">
+        </div>  
+    </div>
+    
+    <div class="content">
+        <h2>Add New Consumer</h2>
+    
+        <!-- Search Existing Customer -->
+        <div class="search-customer">
+            <label for="searchInput">Search Customer (ID or Name):</label>
+            <input type="text" id="searchInput" placeholder="Enter Customer ID or Name">
+            <button class="search-btn" onclick="searchCustomer()">Search</button>
+            <p id="searchMessage"></p>
+        </div>
+    
+        <!-- Consumer Details Form (Hidden Initially) -->
+        <form id="consumerForm" style="display: none;">
+            <label for="consumerNo">Consumer No:</label>
+            <input type="text" id="consumerNo" maxlength="13" placeholder="Enter 13 digit Consumer No" required>
+            <p class="error-message" id="consumerError"></p>
+    
+            <label for="consumerAddress">Address:</label>
+            <input type="text" id="consumerAddress" placeholder="Enter Address" required>
+            <p class="error-message" id="addressError"></p>
+    
+            <label for="consumerPhone">Phone Number:</label>
+            <input type="tel" id="consumerPhone" maxlength="10" placeholder="Enter Phone Number" required>
+            <p class="error-message" id="phoneError"></p>
+    
+            <label for="consumerEmail">Email:</label>
+            <input type="email" id="consumerEmail" placeholder="Enter Email" required>
+            <p class="error-message" id="emailError"></p>
+    
+            <label for="customerType">Customer Type:</label>
+            <select id="customerType" required>
+                <option value="">Select Type</option>
+                <option value="Residential">Residential</option>
+                <option value="Commercial">Commercial</option>
+            </select>
+            <p class="error-message" id="customerTypeError"></p>
+    
+            <button type="button" class="submit-btn" onclick="addConsumer()">Add Consumer</button>
+            <p class="message" id="successMessage"></p>
+            <p id="consumerMessage"></p>
+        </form>
+    
+        <!-- List of Linked Consumers -->
+        <div id="consumerList" style="display: none;">
+            <h3>Linked Consumer Numbers</h3>
+            <ul id="consumerNumbers"></ul>
+        </div>
+    </div>
+    
+    <script src="/js/admin/add_new_consumer.js"></script>
+</body>
+</html>

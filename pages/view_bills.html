@@ -7,54 +7,37 @@
     <link rel="stylesheet" href="/css/view_bills.css">
 </head>
 <body>
-  <div class="container">
-    <h2 class="heading">View and Pay Bills</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Select</th>
-             
-                <th>Bill Number</th>
-                <th>Payment Status</th>
-                <th>Connection Type</th>
-                <th>Connection Status</th>
-               
-                <th>Bill Date</th>
-                <th>Due Date</th>
-               
-                <th>Due Amount</th>
-                <th>Payable Amount</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="billTable">
-            <!-- Rows will be added dynamically using JS -->
-        </tbody>
-    </table>
-    
-    <!-- Modal for Bill Details -->
-    <dialog id="billDialog" class="billDialog">
-       <div class="diloag">
-        <form method="dialog">
-            <h2 class="bill-info">Bill Information</h2>
-            <table id="modalBillDetails">
-                <!-- Bill details will be filled dynamically -->
-            </table>
-            <div class="button-dialog">
-                <button type="button" class="pages-btn" id="payButton">Pay</button>
-            </div>
-          </form>
-       </div>
-      </dialog>
-   <div class="total">
-    <div class="total-amount">Total Payable Amount: <span id="totalAmount">0</span></div>
-    <button class="pages-btn pay-btn" onclick="proceedToPay()">Proceed to Pay</button>
-   </div>
+    <div class="container">
+        <h2>View/Pay Bill</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Consumer No</th>
+                    <th>Bill Number</th>
+                    <th>Payment Status</th>
+                    <th>Connection Type</th>
+                    <th>Connection Status</th>
+                    <th>Mobile Number</th>
+                    <th>Bill Period</th>
+                    <th>Bill Date</th>
+                    <th>Due Date</th>
+                    <th>Disconnection Date</th>
+                    <th>Due Amount</th>
+                    <th>Payable Amount</th>
+                </tr>
+            </thead>
+            <tbody id="billTable">
+                <!-- Dynamic rows will be inserted here -->
+            </tbody>
+        </table>
+        <div class="total-container">
+            <strong>Total Payable Amount: </strong> <span id="totalAmount">0</span>
+        </div>
+        <button class="pay-button" id="proceedToPay" disabled>Proceed to Pay</button>
+    </div>
      
-    <script src="/js/view_bills.js">  
-    </script>
-
-  </div>
+    <script src="/js/view_bills.js"></script>
 </body>
 </html>
 

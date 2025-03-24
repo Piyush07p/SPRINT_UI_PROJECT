@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill History</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bill History</h1>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <div class="container">
+        <h2>Electricity Usage History</h2>
+
+        <!-- Date Range Filter -->
+        <div class="filter-section">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate">
+            <button onclick="filterBills()">Filter</button>
+        </div>
+
+        <!-- Payment Status Filter -->
+        <div class="filter-section">
+            <label for="paymentFilter">Payment Status:</label>
+            <select id="paymentFilter" onchange="filterBills()">
+                <option value="all">All</option>
+                <option value="paid">Paid</option>
+                <option value="unpaid">Unpaid</option>
+            </select>
+        </div>
+
+        <!-- Sort Options -->
+        <div class="sort-section">
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy" onchange="sortBills()">
+                <option value="billDate">Bill Date</option>
+                <option value="dueDate">Due Date</option>
+                <option value="billAmount">Bill Amount</option>
+            </select>
+        </div>
+
+        <!-- Bill History Table -->
+        <table id="billTable">
+            <thead>
+                <tr>
+                    <th>Bill Date</th>
+                    <th>Billing Period</th>
+                    <th>Due Date</th>
+                    <th>Bill Amount</th>
+                    <th>Payment Status</th>
+                    <th>Payment Date</th>
+                    <th>Mode of Payment</th>
+                    <th>Download/View</th>
+                </tr>
+            </thead>
+            <tbody id="billTableBody">
+                <!-- Bill data will be inserted dynamically here -->
+            </tbody>
+        </table>
+
+        <p id="noDataMessage" style="display: none; color: red;">No billing data available for the selected range.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

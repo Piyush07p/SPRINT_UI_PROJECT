@@ -21,8 +21,9 @@ let userIcon=document.getElementById('userIcon');
 
 let loginDiv=document.querySelector(".login_div");
 
-let loginEmail= document.getElementById('email');
+// let loginEmail= document.getElementById('email');
 let loginPassword= document.getElementById('password');
+let loginUserId=document.getElementById('userId');
 
 let navLinks=document.querySelector(".nav-links");
 
@@ -40,16 +41,16 @@ let userArray=(storedUsers)?JSON.parse(storedUsers):[];
 
 function loginUser(event){
     event.preventDefault();
-    emailValue=loginEmail.value;
+    userIdValue=loginUserId.value;
     passwordValue=loginPassword.value;
 
-    localStorage.setItem("email",emailValue);
+    localStorage.setItem("userId",userIdValue);
     localStorage.setItem("password",passwordValue);
     
     
 
     userArray!=[]&&userArray.forEach(user => {
-        if(localStorage.getItem("email")==user.email&&localStorage.getItem("password")==user.password){
+        if(localStorage.getItem("userId")==user.userId&&localStorage.getItem("password")==user.password){
             localStorage.setItem("userName",user.fullName);
             userName.textContent=localStorage.getItem("userName");
             userIcon.innerHTML=`<p style="margin-left:1rem;">${localStorage.getItem("userName")}</p>`
@@ -75,7 +76,7 @@ function loginUser(event){
 
 function logout() {
 
-    localStorage.setItem("email","");
+    localStorage.setItem("userId","");
     localStorage.setItem("password","");
     localStorage.setItem("userName","");
     window.location.reload();
@@ -86,7 +87,7 @@ function logout() {
 
 function onLoad(){
     userArray!=[]&&userArray.forEach(user => {
-        if(localStorage.getItem("email")==user.email){
+        if(localStorage.getItem("userId")==user.userId){
             navLinks.style.display="flex";
             loginDiv.style.display="none"
             welcomDiv.style.display="unset";

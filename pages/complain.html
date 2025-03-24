@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Status Tracker</title>
+    <link rel="stylesheet" href="/css/complain.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Track Complaint Status</h2>
+        <label for="complaintId">Complaint Number:</label>
+        <input type="text" id="complaintId" placeholder="Enter Complaint ID">
+        
+        <label for="status">Filter by Status:</label>
+        <select id="status">
+            <option value="">-- Select Status --</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Closed">Closed</option>
+        </select>
+        <div class="btn-p">
+        <button onclick="trackComplaint()">Submit</button>
+        <button class="clear-btn" onclick="clearForm()">Clear</button>
+    </div>
+        <p class="loading" id="loadingText">Searching...</p>
+        <div class="result" id="resultBox"></div>
+    </div>
+
+    <script src="/js/complain.js"></script>
+</body>
+</html>
