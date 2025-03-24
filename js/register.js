@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let mobileNumber = document.getElementById("mobileNumber").value.trim();
         let password = document.getElementById("password").value.trim();
         let confirmPassword = document.getElementById("confirmPassword").value.trim();
+        let userId=document.getElementById("userId").value.trim();
 
         let valid = true;
 
@@ -138,12 +139,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let userArray=(storedUserInfo)?JSON.parse(storedUserInfo):[];
 
-            let existingUser=userArray.find(user=> user.email===email);
+            let existingUser=userArray.find(user=> user.userId===userId);
             if(existingUser){
                 confirmationMessage.innerHTML=`<p>User Already exists !! Please try to login</p>`
                 return
             }
-            userArray.push({email:email,password:password,fullName:fullName});
+            userArray.push({userId:userId,email:email,password:password,fullName:fullName});
             
             localStorage.setItem("users",JSON.stringify(userArray))
                                           

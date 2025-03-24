@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Complaint</title>
+    <link rel="stylesheet" href="/css/admin/US019.css">
+</head>
+<body>
+    <div class="container">
+        <h2> View Complaints</h2>
+        <div class="search-section">
+            <input type="text" id="customerId" placeholder="Customer ID / Consumer Number">
+            <input type="text" id="complaintId" placeholder="Complaint ID">
+            <select id="complaintType">
+                <option value="">Select Complaint Type</option>
+                <option value="Billing Issue">Billing Issue</option>
+                <option value="Service Interruption">Service Interruption</option>
+            </select>
+            <input type="date" id="startDate">
+            <input type="date" id="endDate">
+            <button onclick="searchComplaints()">Search</button>
+        </div>
+        <p id="searchMessage" style="color: red;"></p>
+        
+        <table id="complaintTable">
+            <thead>
+                <tr>
+                    <th>Complaint ID</th>
+                    <th>Customer ID</th>
+                    <th>Complaint Type</th>
+                    <th>Date Submitted</th>
+                    <th>Status</th>
+                    <th>Last Updated</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>5001</td>
+                    <td>Billing Issue</td>
+                    <td>2025-03-01</td>
+                    <td class="status-open">Open</td>
+                    <td>2025-03-10</td>
+                    <td><button onclick="showStatusOptions(this, 101)">Update</button></td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>5002</td>
+                    <td>Service Interruption</td>
+                    <td>2025-03-02</td>
+                    <td class="status-in-progress">In Progress</td>
+                    <td>2025-03-12</td>
+                    <td><button onclick="showStatusOptions(this, 102)">Update</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button id="exportBtn" onclick="exportToCSV()" style="display: none;">Export to CSV</button>
+    </div>
+    <script src="/js/admin/US018.js"></script>
+</body>
+</html>
