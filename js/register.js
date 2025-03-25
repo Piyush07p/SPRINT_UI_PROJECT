@@ -15,13 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Consumer Number Validation (Max 13 digits)
-    document.getElementById("consumerNumber").addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, ""); // Allow only numbers
+    // document.getElementById("consumerNumber").addEventListener("input", function () {
+    //     this.value = this.value.replace(/\D/g, ""); // Allow only numbers
     
-        if (this.value.length > 13) {
-            this.value = this.value.slice(0, 13); // Limit to 13 digits
-        }
-    });
+    //     if (this.value.length > 13) {
+    //         this.value = this.value.slice(0, 13); // Limit to 13 digits
+    //     }
+    // });
 
     // Full Name Validation (Only Alphabets)
     document.getElementById("fullName").addEventListener("input", function () {
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault(); // Prevent form submission if validation fails
 
         // Get form values
-        let consumerNumber = document.getElementById("consumerNumber").value.trim();
+        // let consumerNumber = document.getElementById("consumerNumber").value.trim();
         let fullName = document.getElementById("fullName").value.trim();
         let email = document.getElementById("email").value.trim();
         let mobileNumber = document.getElementById("mobileNumber").value.trim();
@@ -71,13 +71,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let valid = true;
 
-        // Consumer Number Validation
-        if (consumerNumber.length !== 13) {
-            showError(document.getElementById("consumerNumber"), "Please enter a valid Consumer Number.");
-            valid = false;
-        } else {
-            clearError(document.getElementById("consumerNumber"));
-        }
+        // // Consumer Number Validation
+        // if (consumerNumber.length !== 13) {
+        //     showError(document.getElementById("consumerNumber"), "Please enter a valid Consumer Number.");
+        //     valid = false;
+        // } else {
+        //     clearError(document.getElementById("consumerNumber"));
+        // }
 
         // Full Name Validation
         if (!/^[A-Za-z\s]{1,50}$/.test(fullName)) {
@@ -133,24 +133,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                              <b>Customer ID:</b> ${customerId} <br> 
                                              <b>Name:</b> ${fullName} <br> 
                                              <b>Email:</b> ${email}`;
-
-            let storedUserInfo=localStorage.getItem("users");
-
-            let userArray=(storedUserInfo)?JSON.parse(storedUserInfo):[];
-
-            let existingUser=userArray.find(user=> user.email===email);
-            if(existingUser){
-                confirmationMessage.innerHTML=`<p>User Already exists !! Please try to login</p>`
-                return
-            }
-            userArray.push({email:email,password:password,fullName:fullName});
-            
-            localStorage.setItem("users",JSON.stringify(userArray))
-                                          
+                                           
             form.reset();
-            let redirect=setTimeout(()=>{
-                window.history.back();
-            },1500)
         }
     });
 });
