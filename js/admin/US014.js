@@ -1,7 +1,21 @@
 // Mock data for search (in a real app, this would come from a backend)
 const consumers = [
-    { customerId: "CUST123", consumerNumber: "719239012345", fullName: "John Doe", address: "123 Main St, City", contactInfo: "john.doe@example.com", customerType: "Individual" },
-    { customerId: "CUST124", consumerNumber: "1719234567890", fullName: "Jane Smith", address: "456 Oak Ave, Town", contactInfo: "jane.smith@example.com", customerType: "Business" }
+    { 
+        customerId: "CUST123", 
+        consumerNumber: "1234567890123", 
+        fullName: "John Doe", 
+        address: "123 Main St, City", 
+        contactInfo: "john.doe@example.com", 
+        customerType: "Individual" 
+    },
+    { 
+        customerId: "CUST124", 
+        consumerNumber: "8765432109876", 
+        fullName: "Jane Smith", 
+        address: "456 Oak Ave, Town", 
+        contactInfo: "jane.smith@example.com", 
+        customerType: "Business" 
+    }
 ];
 
 // Search Consumer Function
@@ -13,7 +27,9 @@ function searchConsumer(event) {
     console.log("Search term:", searchInput); // Debug log
 
     const resultsBody = document.getElementById("resultsBody");
+    const statusMessage = document.getElementById("statusMessage");
     resultsBody.innerHTML = ""; // Clear previous results
+    statusMessage.innerHTML = ""; // Clear previous status message
 
     const filteredConsumers = consumers.filter(consumer =>
         consumer.customerId.toLowerCase().includes(searchInput) ||
@@ -30,11 +46,24 @@ function searchConsumer(event) {
 
     filteredConsumers.forEach(consumer => {
         const row = document.createElement("tr");
+        // Truncate consumerNumber for display (first 10 digits + "...")
+        const displayConsumerNumber = consumer.consumerNumber.length > 10 
+            ? consumer.consumerNumber.substring(0, 10) + "..." 
+            : consumer.consumerNumber;
         row.innerHTML = `
             <td>${consumer.customerId}</td>
-            <td>${consumer.consumerNumber}</td>
+            <td>${displayConsumerNumber}</td>
             <td>${consumer.fullName}</td>
-            <td><button onclick="goToUpdate('${consumer.customerId}')">Edit</button></td>
+            <td>
+                <div class="action-container">
+                    <button onclick="toggleDropdown('${consumer.customerId}')">Action</button>
+                    <div id="dropdown-${consumer.customerId}" class="dropdown-content">
+                        <a href="#" onclick="goToUpdate('${consumer.customerId}'); return false;">Edit</a>
+                        <a href="#" onclick="updateStatus('${consumer.customerId}', 'Disconnected'); return false;">Disconnect</a>
+                        <a href="#" onclick="updateStatus('${consumer.customerId}', 'Reconnected'); return false;">Reconnect</a>
+                    </div>
+                </div>
+            </td>
         `;
         resultsBody.appendChild(row);
     });
@@ -42,9 +71,26 @@ function searchConsumer(event) {
     console.log("Results rendered in table"); // Debug log
 }
 
+// Toggle Dropdown Visibility
+function toggleDropdown(customerId) {
+    const dropdown = document.getElementById(`dropdown-${customerId}`);
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
 // Navigate to Update Page with Consumer ID
 function goToUpdate(customerId) {
     window.location.href = `US014_2.html?customerId=${customerId}`;
+}
+
+// Update Consumer Status (Disconnect/Reconnect)
+function updateStatus(customerId, status) {
+    const messageDiv = document.getElementById("statusMessage");
+    messageDiv.className = "message success";
+    messageDiv.textContent = `Consumer status is updated to ${status}.`;
+    // Hide all dropdowns after selection
+    document.querySelectorAll(".dropdown-content").forEach(dropdown => {
+        dropdown.style.display = "none";
+    });
 }
 
 // Populate Update Form with Consumer Data
@@ -100,7 +146,7 @@ function updateConsumer(event) {
     }
 
     // Validate Address
-    // 1. Not empty (already checked)
+    // 1. Not empty
     if (!address) {
         messageDiv.className = "message error";
         messageDiv.textContent = "Address cannot be empty.";
@@ -138,3 +184,15 @@ function goBack() {
 if (window.location.pathname.includes("US014_2.html")) {
     window.onload = populateUpdateForm;
 }
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function(event) {
+    const dropdowns = document.querySelectorAll(".dropdown-content");
+    const buttons = document.querySelectorAll(".action-container button");
+
+    dropdowns.forEach((dropdown, index) => {
+        if (!buttons[index].contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = "none";
+        }
+    });
+});
